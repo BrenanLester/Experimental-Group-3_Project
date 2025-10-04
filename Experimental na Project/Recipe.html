@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Recipe Details</h1>
+    <a href="Home.html">Back to Home</a>
+  </header>
+
+  <main id="recipe-detail"></main>
+
+  <script src="RecipeArray.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const recipeId = parseInt(params.get("id"));
+    const recipe = recipes.find(r => r.id === recipeId);
+
+    const container = document.getElementById("recipe-detail");
+    if (recipe) {
+      container.innerHTML = `
+        <h2>${recipe.title}</h2>
+        <img src="${recipe.image}" alt="${recipe.title}">
+        <h3>Ingredients:</h3>
+        <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join("")}</ul>
+        <h3>Steps:</h3>
+        <ol>${recipe.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+      `;
+    } else {
+      container.innerHTML = "<p>Recipe not found!</p>";
+    }
+  </script>
+</body>
+</html>

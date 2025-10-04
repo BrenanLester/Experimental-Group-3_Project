@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cooking Recipes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <h1>Cooking Recipes</h1>
+    <nav>
+      <a href="Home.html">Home</a>
+      <a href="Contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+    <section class="hero">
+    <div class="hero-text">
+        <h1><b>Cookeys</b></h1>
+        <p>The key to cook-ing it right!</p>
+        <button id="view-all-btn" class="btn">View All Recipes</button>
+    </div>
+    <img src="images/chicken-wings.jpg" alt="Cookeys Logo">
+    </section>
+
+  <!-- Categories -->
+    <section>
+    <h2>Simple and Tasty Recipes</h2>
+    <div id="category-buttons" style="text-align:center; margin-bottom:20px;">
+        <button class="btn" data-category="Filipino">Filipino</button>
+        <button class="btn" data-category="Italian">Italian</button>
+        <button class="btn" data-category="Desserts">Desserts</button>
+    </div>
+    <div id="all-recipes" class="recipe-grid"></div>
+    </section>
+
+  <!-- Recipes -->
+  <section>
+    <h2>Simple and Tasty Recipes</h2>
+    <div id="all-recipes" class="recipe-grid"></div>
+  </section>
+
+  <!-- Recommendations -->
+  <section>
+    <h2>Recommended for You</h2>
+    <div id="recommended" class="recipe-grid"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 All rights Reserved Group 3</p>
+  </footer>
+
+  <script src="RecipeArray.js"></script>
+  <script src="Interactivity.js"></script>
+</body>
+</html>
