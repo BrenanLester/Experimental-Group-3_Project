@@ -11,35 +11,29 @@
     <h1>Cooking Recipes</h1>
     <nav>
       <a href="Home.html">Home</a>
+      <a href="Recipe.html">Recipes</a>
       <a href="Contact.html">Contact</a>
     </nav>
   </header>
 
   <!-- Hero Section -->
-    <section class="hero">
+  <section class="hero">
     <div class="hero-text">
-        <h1><b>Cookeys</b></h1>
-        <p>The key to cook-ing it right!</p>
-        <button id="view-all-btn" class="btn">View All Recipes</button>
+      <h1><b>Cookeys</b></h1>
+      <p>The key to cook-ing it right!</p>
     </div>
     <img src="images/chicken-wings.jpg" alt="Cookeys Logo">
-    </section>
+  </section>
 
   <!-- Categories -->
-    <section>
-    <h2>Simple and Tasty Recipes</h2>
-    <div id="category-buttons" style="text-align:center; margin-bottom:20px;">
-        <button class="btn" data-category="Filipino">Filipino</button>
-        <button class="btn" data-category="Italian">Italian</button>
-        <button class="btn" data-category="Desserts">Desserts</button>
-    </div>
-    <div id="all-recipes" class="recipe-grid"></div>
-    </section>
-
-  <!-- Recipes -->
   <section>
-    <h2>Simple and Tasty Recipes</h2>
-    <div id="all-recipes" class="recipe-grid"></div>
+    <h2>Categories</h2>
+    <div id="category-buttons" style="text-align:center; margin-bottom:20px;">
+      <button class="btn" data-category="Filipino">Filipino</button>
+      <button class="btn" data-category="Italian">Italian</button>
+      <button class="btn" data-category="Desserts">Desserts</button>
+    </div>
+    <div id="category-recipes" class="recipe-grid"></div>
   </section>
 
   <!-- Recommendations -->
@@ -54,6 +48,32 @@
   </footer>
 
   <script src="RecipeArray.js"></script>
-  <script src="Interactivity.js"></script>
+  <script>
+    // Nagpapakita ng recipe sa piniling category
+    const categoryRecipes = document.getElementById("category-recipes");
+    document.getElementById("category-buttons").addEventListener("click", function(e) {
+      if (e.target.dataset.category) {
+        const filtered = recipes.filter(r => r.category === e.target.dataset.category);
+        categoryRecipes.innerHTML = filtered.map(r => `
+          <div class="recipe-card">
+            <img src="${r.image}" alt="${r.title}">
+            <h4>${r.title}</h4>
+            <a href="Recipe.html?id=${r.id}" class="btn">View Recipe</a>
+          </div>
+        `).join("");
+      }
+    });
+
+    const recommendedContainer = document.getElementById("recommended");
+    const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
+    recommendedContainer.innerHTML = `
+      <div class="recipe-card">
+        <img src="${randomRecipe.image}" alt="${randomRecipe.title}">
+        <h4>${randomRecipe.title}</h4>
+        <a href="Recipe.html?id=${randomRecipe.id}" class="btn">View Recipe</a>
+      </div>
+    `;
+  </script>
 </body>
 </html>
+
