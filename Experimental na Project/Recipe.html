@@ -3,36 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recipe Details</title>
+  <title>Recipes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Recipe Details</h1>
-    <a href="Home.html">Back to Home</a>
+  <header class="site-header">
+    <h1>Recipes</h1>
+    <nav>
+      <a href="Home.html">Home</a>
+      <a href="Recipe.html">Recipes</a>
+      <a href="Contact.html">Contact</a>
+    </nav>
   </header>
 
   <main id="recipe-detail"></main>
 
+  <footer>
+    <p>© 2025 All rights Reserved Group 3</p>
+  </footer>
+
   <script src="RecipeArray.js"></script>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const recipeId = parseInt(params.get("id"));
-    const recipe = recipes.find(r => r.id === recipeId);
-
     const container = document.getElementById("recipe-detail");
-    if (recipe) {
+
+    function showAllRecipes() {
       container.innerHTML = `
-        <h2>${recipe.title}</h2>
-        <img src="${recipe.image}" alt="${recipe.title}">
-        <h3>Ingredients:</h3>
-        <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join("")}</ul>
-        <h3>Steps:</h3>
-        <ol>${recipe.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+        <h2>All Recipes</h2>
+        <div class="recipe-grid">
+          ${recipes.map(r => `
+            <div class="recipe-card" data-id="${r.id}" style="cursor:pointer;">
+              <img src="${r.image}" alt="${r.title}">
+              <h4>${r.title}</h4>
+              <a class="btn" data-id="${r.id}">View Recipe</a>
+            </div>
+          `).join("")}
+        </div>
       `;
-    } else {
-      container.innerHTML = "<p>Recipe not found!</p>";
+      // Add click
+      document.querySelectorAll('.recipe-card, .recipe-card .btn').forEach(el => {
+        el.onclick = function(e) {
+          const id = el.getAttribute('data-id');
+          showRecipeDetails(id);
+        };
+      });
     }
+
+    function showRecipeDetails(id) {
+      const recipe = recipes.find(r => r.id == id);
+      if (recipe) {
+        container.innerHTML = `
+          <h2>${recipe.title}</h2>
+          <img src="${recipe.image}" alt="${recipe.title}">
+          <h3>Ingredients:</h3>
+          <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join("")}</ul>
+          <h3>Steps:</h3>
+          <ol>${recipe.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+          <button class="btn" id="back-btn">Back to All Recipes</button>
+        `;
+        document.getElementById('back-btn').onclick = showAllRecipes;
+      } else {
+        container.innerHTML = "<p>Recipe not found!</p>";
+      }
+    }
+
+    // Palaging pinapakita lahat ng Recipe
+    showAllRecipes();
   </script>
 </body>
 </html>
